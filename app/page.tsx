@@ -1,5 +1,6 @@
 'use client'
-import { useEffect } from 'react'
+
+import { useState, useEffect } from 'react'  // <-- این خط رو اضافه کن
 import Image from 'next/image'
 import Link from 'next/link'
 import BookingForm from '@/components/BookingForm'
@@ -16,6 +17,17 @@ const serviceItems = [
 ]
 
 export default function Home() {
+  // برای جلوگیری از hydration mismatch
+  const [isMounted, setIsMounted] = useState(false)
+  
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) {
+    return null
+  }
+
   return (
     <>
       {/* ========== بخش هدر ========== */}
@@ -24,10 +36,6 @@ export default function Home() {
         {/* 1. متن */}
         <AnimationWrapper direction="up" delay={0.2}>
           <div className="text-center md:text-right mb-3 xs:mb-3 s:mb-4 m:mb-6 md:mb-8 lg:mb-10 xl:mb-12 max-w-2xl mx-auto md:mr-10 lg:-mr-[100px] xl:mr-28 md:ml-auto mt-2 xs:mt-2 s:mt-3 m:mt-4 md:mt-8 lg:mt-12 xl:mt-48">
-            {/*
-              اصلاح H1: قبلاً هم اینجا h1 بود هم در Header.tsx.
-              عنوان اصلی صفحه اینجاست. در Header.tsx عنوان "آرامیس" رو به <p> یا <span> تغییر بده.
-            */}
             <h1 className="text-base xs:text-base s:text-lg m:text-xl md:text-center md:text-2xl lg:text-3xl xl:text-5xl font-extrabold text-[#447F98] mb-1 xs:mb-1 s:mb-2 m:mb-2 md:mb-3 lg:mb-4 leading-tight">
               آرامش را به جسم و ذهن خود هدیه دهید
             </h1>
@@ -56,10 +64,9 @@ export default function Home() {
           </div>
         </AnimationWrapper>
 
-        {/* 2. عکس‌های نیم‌دایره — تبدیل به Next/Image با priority برای بهبود LCP */}
+        {/* 2. عکس‌های نیم‌دایره */}
         <div className="flex flex-row justify-center lg:justify-end items-center gap-6 -mt-[50px] xs:mt-1 lg:-mt-[250px] xl:-mt-[435px]">
           
-          {/* عکس اول */}
           <div className="w-[300px] max-w-[400px] relative mx-auto mb-[100px] xs:mb-[268px] s:mb-[290px] m:mb-[312px] md:mb-[496px] lg:mx-1 xl:mb-[550px]">
             <div className="relative mt-[100px] pt-[150%] rounded-t-[190px] overflow-hidden shadow-xl">
               <Image
@@ -73,7 +80,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* عکس دوم */}
           <div className="w-[460px] max-w-lg relative mx-auto lg:mx-0">
             <div className="relative w-full pt-[150%] rounded-t-[250px] overflow-hidden shadow-xl">
               <Image
