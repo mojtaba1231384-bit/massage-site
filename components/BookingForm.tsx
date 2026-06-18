@@ -391,7 +391,7 @@ export default function BookingForm() {
     return basePrice * sessions
   }
 
-  // ===== محاسبه پیش‌پرداخت (۱۰٪) =====
+  // محاسبه پیش‌پرداخت (۱۰٪)
   const getDeposit = () => {
     return Math.floor(getFinalPrice() * 0.1)
   }
@@ -722,7 +722,7 @@ export default function BookingForm() {
           <input
             type="text"
             required
-            placeholder="مثال:زهرا هیبتیان"
+            placeholder="مثال: علی محمدی"
             className={`w-full p-4 bg-gray-50 border-2 rounded-xl focus:ring-2 focus:ring-[#447F98] focus:border-transparent outline-none transition-all ${
               errors.name && touched.name ? 'border-red-500 bg-red-50' : 'border-gray-200'
             }`}
@@ -816,7 +816,6 @@ export default function BookingForm() {
               inputClass="w-full p-4 bg-transparent focus:ring-2 focus:ring-[#447F98] focus:border-transparent outline-none transition-all text-right"
               format="YYYY/MM/DD"
               containerClassName="w-full"
-              onBlur={() => handleBlur('date')}
             />
           </div>
           {errors.date && touched.date && (
