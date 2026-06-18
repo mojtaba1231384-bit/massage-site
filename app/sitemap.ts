@@ -1,30 +1,38 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+const baseUrl = 'https://massage-site.vercel.app'
+  
   return [
     {
-      url: 'https://aramis.ir',
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: 'https://aramis.ir/#services',
+      url: `${baseUrl}/#services`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/prices`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/#booking`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: 'https://aramis.ir/#gallery',
+      url: `${baseUrl}/#gallery`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'monthly',
       priority: 0.7,
     },
-    {
-      url: 'https://aramis.ir/#booking',
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    }
   ]
 }

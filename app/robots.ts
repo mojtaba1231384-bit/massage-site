@@ -5,8 +5,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/payment/verify/'],
+      disallow: [
+        '/api/',
+        '/payment/verify/',
+        '/admin',
+        '/tracking',  // اضافه کن اگه tracking رو نمی‌خوای
+      ],
     },
-    sitemap: 'https://aramis.ir.ir/sitemap.xml',
+sitemap: 'https://massage-site.vercel.app/sitemap.xml',
   }
 }

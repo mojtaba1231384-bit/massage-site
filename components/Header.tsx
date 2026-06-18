@@ -57,7 +57,6 @@ export default function Header() {
       <div className="container mx-auto">
         <div className="flex items-center justify-between min-h-[60px] sm:min-h-[80px]">
           
-          {/* دکمه‌های منو - سایز بزرگ‌تر */}
           <nav className="hidden md:flex items-center gap-2 sm:gap-3">
             {navItems.map((item) => (
               <button
@@ -88,7 +87,7 @@ export default function Header() {
             }`}>
               <Image
                 src="/customer-avatar.png"
-                alt="مشتری عزیز"
+                alt="آرامیس - مرکز ماساژ اصفهان"
                 fill
                 className="object-cover"
                 priority
@@ -98,13 +97,17 @@ export default function Header() {
             </div>
             
             <div className="block">
-              <h1 className={`font-bold transition-all duration-500 ${
+              {/*
+                اصلاح H1 تکراری: قبلاً h1 بود که با H1 صفحه اصلی تداخل داشت.
+                لوگو/نام برند در هدر نباید H1 باشه — از p استفاده میکنیم.
+              */}
+              <p className={`font-bold transition-all duration-500 ${
                 isScrolled 
                   ? 'text-sm sm:text-base text-[#447F98]' 
                   : 'text-lg sm:text-xl text-white'
               }`}>
                 آرامیس
-              </h1>
+              </p>
               <p className={`text-[10px] sm:text-xs transition-all duration-500 ${
                 isScrolled ? 'text-gray-500' : 'text-white/80'
               }`}>

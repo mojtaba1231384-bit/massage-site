@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const galleryImages = [
-  { id: 1, src: '/gallery/massage1.jpg'},
-  { id: 2, src: '/gallery/massage2.jpg'},
-  { id: 3, src: '/gallery/massage3.jpg'},
-  { id: 4, src: '/gallery/massage4.jpg'},
-  { id: 5, src: '/gallery/massage5.jpg'},
-  { id: 6, src: '/gallery/massage6.jpg'},
+  { id: 1, src: '/gallery/massage1.jpg', title: 'ماساژ ریلکسی', category: 'ماساژ' },
+  { id: 2, src: '/gallery/massage2.jpg', title: 'ماساژ آروماتراپی', category: 'ماساژ' },
+  { id: 3, src: '/gallery/massage3.jpg', title: 'ماساژ سنگ داغ', category: 'ماساژ' },
+  { id: 4, src: '/gallery/massage4.jpg', title: 'ماساژ درمانی', category: 'ماساژ درمانی' },
+  { id: 5, src: '/gallery/massage5.jpg', title: 'بادکش درمانی', category: 'بادکش' },
+  { id: 6, src: '/gallery/massage6.jpg', title: 'ماساژ تخصصی پا', category: 'ماساژ' },
 ]
 
 export default function Gallery() {
@@ -42,14 +42,12 @@ export default function Gallery() {
     }
   }
 
-  // اگر موبایل نیست، گرید نمایش بده
   if (!isMobile) {
     return (
       <section id="gallery" className="py-8 sm:py-12 md:py-20 bg-[#89D8E1]/20">
         <div className="container mx-auto px-3 sm:px-4">
           <div className="text-center mb-6 sm:mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#000000] mb-1 sm:mb-2 md:mb-4">گالری طرح‌های ماساژ</h2>
-     
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {galleryImages.map((img) => (
@@ -61,7 +59,7 @@ export default function Gallery() {
                 <div className="relative h-56 sm:h-64 md:h-[500px] w-[100%]">
                   <Image
                     src={img.src}
-                    alt={img.title}
+                    alt={`${img.title} در آرامیس اصفهان`}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="(max-width: 768px) 50vw, 33vw"
@@ -89,7 +87,7 @@ export default function Gallery() {
               <div className="relative h-[40vh] sm:h-[60vh] md:h-[80vh] w-full">
                 <Image 
                   src={selectedImage.src}
-                  alt={selectedImage.title}
+                  alt={`${selectedImage.title} در آرامیس اصفهان`}
                   fill
                   className="object-contain"
                 />
@@ -104,7 +102,6 @@ export default function Gallery() {
     )
   }
 
-  // حالت موبایل - اسلایدر
   return (
     <section id="gallery" className="py-8 bg-[#89D8E1]/20">
       <div className="container mx-auto px-3">
@@ -114,7 +111,6 @@ export default function Gallery() {
         </div>
 
         <div className="relative">
-          {/* نمایش اسلاید فعلی */}
           <div className="relative h-[350px] rounded-xl overflow-hidden shadow-xl">
             <AnimatePresence mode="wait">
               <motion.div
@@ -127,7 +123,7 @@ export default function Gallery() {
               >
                 <Image
                   src={galleryImages[currentSlide].src}
-                  alt={galleryImages[currentSlide].title}
+                  alt={`${galleryImages[currentSlide].title} در آرامیس اصفهان`}
                   fill
                   className="object-cover"
                 />
@@ -140,37 +136,31 @@ export default function Gallery() {
               </motion.div>
             </AnimatePresence>
 
-            {/* شماره اسلاید */}
             <div className="absolute top-3 right-3 bg-black/60 text-white text-xs px-3 py-1 rounded-full">
               {currentSlide + 1} / {galleryImages.length}
             </div>
 
-            {/* دکمه چپ */}
-           {/* دکمه راست (بعدی) - سمت راست */}
-{/* دکمه چپ (قبلی) - سمت چپ صفحه */}
-<button
-  onClick={goToNext}
-  className={`absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-[#447F98] w-9 h-9 rounded-full shadow-lg flex items-center justify-center transition-all text-xl z-10 ${
-      'hover:scale-110'
-  }`}
-  disabled={currentSlide === galleryImages.length - 1}
->
-  ›
-</button>
+            <button
+              onClick={goToNext}
+              className={`absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-[#447F98] w-9 h-9 rounded-full shadow-lg flex items-center justify-center transition-all text-xl z-10 ${
+                  'hover:scale-110'
+              }`}
+              disabled={currentSlide === galleryImages.length - 1}
+            >
+              ›
+            </button>
 
-{/* دکمه راست (بعدی) - سمت راست صفحه */}
-<button
-  onClick={goToPrev}
-  className={`absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-[#447F98] w-9 h-9 rounded-full shadow-lg flex items-center justify-center transition-all text-xl z-10 ${
-    currentSlide === galleryImages.length  ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
-  }`}
-  disabled={currentSlide === 0}
->
-  ‹
-</button>
+            <button
+              onClick={goToPrev}
+              className={`absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-[#447F98] w-9 h-9 rounded-full shadow-lg flex items-center justify-center transition-all text-xl z-10 ${
+                currentSlide === galleryImages.length  ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
+              }`}
+              disabled={currentSlide === 0}
+            >
+              ‹
+            </button>
           </div>
 
-          {/* نقاط پایین */}
           <div className="flex justify-center gap-2 mt-4">
             {galleryImages.map((_, index) => (
               <button
@@ -185,14 +175,12 @@ export default function Gallery() {
             ))}
           </div>
 
-          {/* متن راهنما */}
           <p className="text-center text-xs text-gray-400 mt-2">
             👈 برای دیدن تصاویر بیشتر، دکمه‌ها را بزنید
           </p>
         </div>
       </div>
 
-      {/* Modal بزرگنمایی */}
       {selectedImage && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-3" onClick={() => setSelectedImage(null)}>
           <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
@@ -205,7 +193,7 @@ export default function Gallery() {
             <div className="relative h-[40vh] w-full">
               <Image 
                 src={selectedImage.src}
-                alt={selectedImage.title}
+                alt={`${selectedImage.title} در آرامیس اصفهان`}
                 fill
                 className="object-contain"
               />
