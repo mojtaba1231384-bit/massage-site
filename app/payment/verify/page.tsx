@@ -1,16 +1,38 @@
 'use client'
+
+import { Suspense } from 'react'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle, XCircle } from 'lucide-react'
 
-export default function PaymentVerify() {
+// ===== کامپوننت اصلی با Suspense =====
+export default function PaymentVerifyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#447F98] to-[#629BB6] p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#447F98] mx-auto mb-4"></div>
+          <h2 className="text-2xl font-bold text-gray-800">در حال تایید پرداخت...</h2>
+        </div>
+      </div>
+    }>
+      <PaymentVerifyContent />
+    </Suspense>
+  )
+}
+
+// ===== محتوای اصلی با useSearchParams =====
+function PaymentVerifyContent() {
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<'loading' | 'success' | 'failed'>('loading')
 
   useEffect(() => {
     const authority = searchParams.get('Authority')
     const statusParam = searchParams.get('Status')
+    
+    console.log('Authority:', authority)
+    console.log('Status:', statusParam)
     
     setTimeout(() => {
       if (statusParam === 'OK') {
