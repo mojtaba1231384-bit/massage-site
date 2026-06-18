@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'  // <-- این خط رو اضافه کن
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import BookingForm from '@/components/BookingForm'
@@ -17,7 +17,6 @@ const serviceItems = [
 ]
 
 export default function Home() {
-  // برای جلوگیری از hydration mismatch
   const [isMounted, setIsMounted] = useState(false)
   
   useEffect(() => {
@@ -36,27 +35,34 @@ export default function Home() {
         {/* 1. متن */}
         <AnimationWrapper direction="up" delay={0.2}>
           <div className="text-center md:text-right mb-3 xs:mb-3 s:mb-4 m:mb-6 md:mb-8 lg:mb-10 xl:mb-12 max-w-2xl mx-auto md:mr-10 lg:-mr-[100px] xl:mr-28 md:ml-auto mt-2 xs:mt-2 s:mt-3 m:mt-4 md:mt-8 lg:mt-12 xl:mt-48">
-            <h1 className="text-base xs:text-base s:text-lg m:text-xl md:text-center md:text-2xl lg:text-3xl xl:text-5xl font-extrabold text-[#447F98] mb-1 xs:mb-1 s:mb-2 m:mb-2 md:mb-3 lg:mb-4 leading-tight">
+            {/* عنوان اصلی - بزرگتر برای سایز s */}
+            <h1 className="text-base xs:text-base s:text-xl s:font-extrabold m:text-xl md:text-center md:text-2xl lg:text-3xl xl:text-5xl font-extrabold text-[#447F98] mb-1 xs:mb-1 s:mb-3 m:mb-2 md:mb-3 lg:mb-4 leading-tight">
               آرامش را به جسم و ذهن خود هدیه دهید
             </h1>
-            <p className="text-sm text-center xs:text-sm s:text-base m:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-[#447f98] mb-1 xs:mb-1 s:mb-2 m:mb-2 md:mb-3 lg:mb-4 xl:mb-6">
+            
+            {/* زیر عنوان - بزرگتر برای سایز s */}
+            <p className="text-sm text-center xs:text-sm s:text-2xl s:font-extrabold m:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-[#447f98] mb-1 xs:mb-1 s:mb-3 m:mb-2 md:mb-3 lg:mb-4 xl:mb-6">
               ماساژ آرامیس اصفهان
             </p>
-            <div className="text-gray-600 text-center text-[10px] xs:text-[10px] s:text-xs m:text-sm md:text-base lg:text-base xl:text-lg leading-relaxed sm:leading-loose">
-              <p className='font-bold'>در فضای آرام و حرفه‌ای</p>
-              <p className='font-bold'>انواع خدمات ماساژ درمانی، ریلکسی و تخصصی را تجربه کنید</p>
-              <p className='font-bold'>و خستگی را از تن خود دور کنید</p>
+            
+            {/* توضیحات - بزرگتر برای سایز s */}
+            <div className="text-gray-600 text-center text-[10px] xs:text-[10px] s:text-base s:leading-8 m:text-sm md:text-base lg:text-base xl:text-lg leading-relaxed sm:leading-loose">
+              <p className='font-bold s:text-md'>در فضای آرام و حرفه‌ای</p>
+              <p className='font-bold s:text-md'>انواع خدمات ماساژ درمانی، ریلکسی و تخصصی را تجربه کنید</p>
+              <p className='font-bold s:text-md'>و خستگی را از تن خود دور کنید</p>
             </div>
-            <div className="flex flex-col xs:flex-col s:flex-row m:flex-row md:flex-row lg:flex-row gap-1 xs:gap-1 s:gap-2 m:gap-2 md:gap-3 lg:gap-4 mt-2 xs:mt-2 s:mt-3 m:mt-3 md:mt-4 lg:mt-6 xl:mt-8 justify-center">
+            
+            {/* دکمه‌ها - بزرگتر برای سایز s */}
+            <div className="flex flex-col xs:flex-col s:flex-row m:flex-row md:flex-row lg:flex-row gap-1 xs:gap-1 s:gap-4 m:gap-2 md:gap-3 lg:gap-4 mt-2 xs:mt-2 s:mt-5 m:mt-3 md:mt-4 lg:mt-6 xl:mt-8 justify-center">
               <button
                 onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-[#447f98] hover:bg-[#629BB6] text-white px-3 xs:px-3 s:px-4 m:px-5 md:px-6 lg:px-7 xl:px-8 py-1.5 xs:py-1.5 s:py-2 m:py-2 md:py-2.5 lg:py-3 rounded-full text-[10px] xs:text-[10px] s:text-xs m:text-sm md:text-base lg:text-base xl:text-lg font-semibold transition-all"
+                className="bg-[#447f98] hover:bg-[#629BB6] text-white px-3 xs:px-3 s:px-6 m:px-5 md:px-6 lg:px-7 xl:px-8 py-1.5 xs:py-1.5 s:py-3 m:py-2 md:py-2.5 lg:py-3 rounded-full text-[10px] xs:text-[10px] s:text-base m:text-sm md:text-base lg:text-base xl:text-lg font-semibold transition-all"
               >
                 رزرو نوبت
               </button>
               <button
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-gray-100 hover:bg-gray-200 text-[#447F98] px-3 xs:px-3 s:px-4 m:px-5 md:px-6 lg:px-7 xl:px-8 py-1.5 xs:py-1.5 s:py-2 m:py-2 md:py-2.5 lg:py-3 rounded-full text-[10px] xs:text-[10px] s:text-xs m:text-sm md:text-base lg:text-base xl:text-lg font-semibold border-2 border-[#447F98] transition-all"
+                className="bg-gray-100 hover:bg-gray-200 text-[#447F98] px-3 xs:px-3 s:px-6 m:px-5 md:px-6 lg:px-7 xl:px-8 py-1.5 xs:py-1.5 s:py-3 m:py-2 md:py-2.5 lg:py-3 rounded-full text-[10px] xs:text-[10px] s:text-base m:text-sm md:text-base lg:text-base xl:text-lg font-semibold border-2 border-[#447F98] transition-all"
               >
                 مشاهده خدمات
               </button>
@@ -103,37 +109,38 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 3. گرید خدمات */}
-        <section id="services" className="-mt-[40px] xs:-mt-[1px] s:mt-[20px] m:mt-[20px] md:mt-[20px] lg:mt-[20px] xl:-mt-[550px] pb-3 xs:pb-3 s:pb-4 m:pb-4 md:pb-6 lg:pb-10 xl:pb-16 animate-on-scroll">
-          <div className="grid grid-cols-2 xs:grid-cols-2 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1.5 xs:gap-1.5 s:gap-2 m:gap-2 md:gap-3 lg:gap-3 xl:gap-3 max-w-7xl mx-1 xs:mx-1 s:mx-2 m:mx-3 md:mx-4 lg:mx-8 xl:mx-16">
-            
-            {serviceItems.map((item, index) => (
-              <AnimationWrapper key={item.id} direction="up" delay={index * 0.1}>
-                <Link href={`/services/${item.id}`} className="block bg-white rounded-lg xs:rounded-lg s:rounded-xl m:rounded-xl md:rounded-2xl lg:rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border border-gray-100 cursor-pointer">
-                  <div className="relative h-24 xs:h-24 s:h-28 m:h-32 md:h-36 lg:h-44 xl:h-56 w-full bg-gray-200">
-                    <Image
-                      src={`/services/massage-${item.id}.jpg`}
-                      alt={`${item.name} در آرامیس اصفهان`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-1 xs:p-1 s:p-1.5 m:p-1.5 md:p-2 lg:p-2.5 xl:p-2 text-center">
-                    <h3 className="text-[6px] xs:text-[6px] s:text-[7px] m:text-[8px] md:text-[9px] lg:text-xs xl:text-sm font-bold text-gray-800 mb-0.5 xs:mb-0.5 s:mb-1 line-clamp-1">
-                      {item.name}
-                    </h3>
-                    <p className="text-gray-500 text-[5px] xs:text-[5px] s:text-[6px] m:text-[7px] md:text-[8px] lg:text-[10px] xl:text-xs mb-0.5 xs:mb-0.5 s:mb-1 line-clamp-1 md:line-clamp-2">
-                      {item.desc}
-                    </p>
-                    <span className="text-[#447f98] text-[5px] xs:text-[5px] s:text-[6px] m:text-[7px] md:text-[8px] lg:text-[10px] xl:text-xs font-semibold hover:text-[#629BB6] transition-colors">جزئیات →</span>
-                  </div>
-                </Link>
-              </AnimationWrapper>
-            ))}
-
+       {/* 3. گرید خدمات - فونت بزرگتر */}
+<section id="services" className="-mt-[40px] xs:-mt-[1px] s:mt-[20px] m:mt-[20px] md:mt-[20px] lg:mt-[20px] xl:-mt-[550px] pb-3 xs:pb-3 s:pb-4 m:pb-4 md:pb-6 lg:pb-10 xl:pb-16 animate-on-scroll">
+  <div className="grid grid-cols-2 xs:grid-cols-2 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1.5 xs:gap-1.5 s:gap-2 m:gap-2 md:gap-3 lg:gap-3 xl:gap-3 max-w-7xl mx-1 xs:mx-1 s:mx-2 m:mx-3 md:mx-4 lg:mx-8 xl:mx-16">
+    
+    {serviceItems.map((item, index) => (
+      <AnimationWrapper key={item.id} direction="up" delay={index * 0.1}>
+        <Link href={`/services/${item.id}`} className="block bg-white rounded-lg xs:rounded-lg s:rounded-xl m:rounded-xl md:rounded-2xl lg:rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border border-gray-100 cursor-pointer">
+          <div className="relative h-24 xs:h-24 s:h-28 m:h-32 md:h-36 lg:h-44 xl:h-56 w-full bg-gray-200">
+            <Image
+              src={`/services/massage-${item.id}.jpg`}
+              alt={`${item.name} در آرامیس اصفهان`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, 33vw"
+            />
           </div>
-        </section>
+          {/* ===== فونت بزرگتر برای زیر عکس‌ها ===== */}
+          <div className="p-1 xs:p-1 s:p-2 m:p-1.5 md:p-2 lg:p-2.5 xl:p-2 text-center">
+            <h3 className="text-[8px] xs:text-[8px] s:text-sm s:font-bold m:text-[10px] md:text-xs lg:text-sm xl:text-base font-bold text-gray-800 mb-0.5 xs:mb-0.5 s:mb-1 line-clamp-1">
+              {item.name}
+            </h3>
+            <p className="text-gray-500 text-[7px] xs:text-[7px] s:text-xs s:font-medium m:text-[9px] md:text-[10px] lg:text-xs xl:text-sm mb-0.5 xs:mb-0.5 s:mb-1 line-clamp-1 md:line-clamp-2">
+              {item.desc}
+            </p>
+            <span className="text-[#447f98] text-[7px] xs:text-[7px] s:text-xs s:font-bold m:text-[9px] md:text-[10px] lg:text-xs xl:text-sm font-semibold hover:text-[#629BB6] transition-colors">جزئیات →</span>
+          </div>
+        </Link>
+      </AnimationWrapper>
+    ))}
+
+  </div>
+</section>
 
       </section>
 

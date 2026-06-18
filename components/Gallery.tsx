@@ -107,7 +107,6 @@ export default function Gallery() {
       <div className="container mx-auto px-3">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-[#000000] mb-1">گالری طرح‌های ماساژ</h2>
-          <p className="text-xs text-gray-600">نمونه کارهای انجام شده برای مشتریان عزیز</p>
         </div>
 
         <div className="relative">

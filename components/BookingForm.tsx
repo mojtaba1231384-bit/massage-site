@@ -41,8 +41,10 @@ export default function BookingForm() {
   const [unavailableDays, setUnavailableDays] = useState<string[]>([])
   const [unavailableTimes, setUnavailableTimes] = useState<any[]>([])
   const [existingBookings, setExistingBookings] = useState<any[]>([])
+  const [weekendMessage, setWeekendMessage] = useState('')
+  // ===== STATE جدید برای تشخیص روزهای تعطیل =====
+  const [isWeekend, setIsWeekend] = useState(false)
 
-  // ساعات کاری: ۹ صبح تا ۸ شب (با فواصل ۱۰ دقیقه برای پشتیبانی از ۲۰ دقیقه)
   const timeSlots = [
     '09:00', '09:10', '09:20', '09:30', '09:40', '09:50',
     '10:00', '10:10', '10:20', '10:30', '10:40', '10:50',
@@ -63,123 +65,93 @@ export default function BookingForm() {
     label: time
   }))
 
-  // خدمات با قیمت‌های دقیق
   const services = [
     { 
       id: 'massage-1',
       name: 'ماساژ ریلکسی',
       basePrice: 950000,
-      durations: [
-        { minutes: 60, price: 950000 },
-      ]
+      durations: [{ minutes: 60, price: 950000 }]
     },
     { 
       id: 'massage-2',
       name: 'ماساژ ترکیبی رفع گرفتگی',
       basePrice: 1200000,
-      durations: [
-        { minutes: 60, price: 1500000 },
-      ]
+      durations: [{ minutes: 60, price: 1200000 }]
     },
     { 
       id: 'massage-3',
       name: 'ماساژ آروماتراپی',
       basePrice: 950000,
-      durations: [
-        { minutes: 60, price: 950000 },
-      ]
+      durations: [{ minutes: 60, price: 950000 }]
     },
     { 
       id: 'massage-4',
       name: 'ماساژ روسی',
       basePrice: 1200000,
-      durations: [
-        { minutes: 60, price: 1200000 },
-      ]
+      durations: [{ minutes: 60, price: 1200000 }]
     },
     { 
       id: 'massage-5',
       name: 'ماساژ سوئدی',
       basePrice: 1100000,
-      durations: [
-        { minutes: 60, price: 1100000 },
-      ]
+      durations: [{ minutes: 60, price: 1100000 }]
     },
     { 
       id: 'massage-6',
       name: 'ماساژ درمانی و بهبودی',
       basePrice: 650000,
-      durations: [
-        { minutes: 20, price: 650000 },
-      ]
+      durations: [{ minutes: 20, price: 650000 }]
     },
     { 
       id: 'massage-7',
       name: 'ماساژ تخصصی پا',
       basePrice: 950000,
-      durations: [
-        { minutes: 60, price: 950000 },
-      ]
+      durations: [{ minutes: 60, price: 950000 }]
     },
     { 
       id: 'massage-8',
       name: 'ماساژ گردش خون',
       basePrice: 1200000,
-      durations: [
-        { minutes: 60, price: 1200000 },
-      ]
+      durations: [{ minutes: 60, price: 1200000 }]
     },
     { 
       id: 'massage-9',
       name: 'ماساژ سنگ داغ',
       basePrice: 1300000,
-      durations: [
-        { minutes: 60, price: 1300000 },
-      ]
+      durations: [{ minutes: 60, price: 1300000 }]
     },
     { 
       id: 'massage-10',
       name: 'ماساژ شمع',
       basePrice: 1700000,
-      durations: [
-        { minutes: 60, price: 1700000 },
-      ]
+      durations: [{ minutes: 60, price: 1700000 }]
     },
     { 
       id: 'massage-11',
       name: 'ماساژ صورت',
       basePrice: 450000,
-      durations: [
-        { minutes: 60, price: 450000 },
-      ]
+      durations: [{ minutes: 60, price: 450000 }]
     },
     { 
       id: 'massage-12',
       name: 'بادکش کمر',
       basePrice: 300000,
-      durations: [
-        { minutes: 60, price: 300000 },
-      ]
+      durations: [{ minutes: 60, price: 300000 }]
     },
     { 
       id: 'massage-13',
       name: 'بادکش کل بدن',
       basePrice: 500000,
-      durations: [
-        { minutes: 60, price: 500000 },
-      ]
+      durations: [{ minutes: 60, price: 500000 }]
     },
     { 
       id: 'massage-14',
       name: 'ماساژ هربال',
       basePrice: 1500000,
-      durations: [
-        { minutes: 60, price: 1500000 },
-      ]
+      durations: [{ minutes: 60, price: 1500000 }]
     },
   ]
 
-  // استایل سفارشی برای react-select
   const customSelectStyles = {
     control: (provided: any, state: any) => ({
       ...provided,
@@ -273,12 +245,9 @@ export default function BookingForm() {
     })
   }
 
-  // دریافت روزهای غیرفعال از دیتابیس
   useEffect(() => {
     const fetchUnavailableData = async () => {
       try {
-        console.log('📥 دریافت روزهای غیرفعال...')
-        
         const { data: days, error: daysError } = await supabase
           .from('unavailable_days')
           .select('day')
@@ -291,10 +260,8 @@ export default function BookingForm() {
         if (days && days.length > 0) {
           const dayList = days.map(d => d.day)
           setUnavailableDays(dayList)
-          console.log('📋 روزهای غیرفعال:', dayList)
         } else {
           setUnavailableDays([])
-          console.log('📋 هیچ روز غیرفعالی وجود ندارد')
         }
 
         const { data: times, error: timesError } = await supabase
@@ -308,7 +275,6 @@ export default function BookingForm() {
         
         if (times) {
           setUnavailableTimes(times)
-          console.log('📋 زمان‌های غیرفعال:', times.length)
         }
       } catch (error) {
         console.error('❌ خطا:', error)
@@ -318,14 +284,12 @@ export default function BookingForm() {
     fetchUnavailableData()
 
     const interval = setInterval(() => {
-      console.log('🔄 بروزرسانی خودکار...')
       fetchUnavailableData()
     }, 5000)
 
     return () => clearInterval(interval)
   }, [])
 
-  // دریافت رزروهای موجود (برای هر روز)
   const fetchExistingBookings = async (date: string) => {
     if (!date) return
     
@@ -346,7 +310,6 @@ export default function BookingForm() {
     }
   }, [formData.date])
 
-  // محاسبه مدت زمان
   const calculateDuration = (start: string, end: string) => {
     if (!start || !end) return 0
     const [startH, startM] = start.split(':').map(Number)
@@ -354,7 +317,6 @@ export default function BookingForm() {
     return (endH * 60 + endM) - (startH * 60 + startM)
   }
 
-  // گرفتن قیمت
   const getPrice = (serviceId: string, duration: number) => {
     const service = services.find(s => s.id === serviceId)
     if (!service) return 0
@@ -379,7 +341,6 @@ export default function BookingForm() {
     return `${minutes} دقیقه`
   }
 
-  // محاسبه قیمت نهایی با تخفیف جلسات
   const getFinalPrice = () => {
     const duration = calculateDuration(formData.startTime, formData.endTime)
     const basePrice = getPrice(formData.service, duration)
@@ -391,12 +352,10 @@ export default function BookingForm() {
     return basePrice * sessions
   }
 
-  // محاسبه پیش‌پرداخت (۱۰٪)
   const getDeposit = () => {
     return Math.floor(getFinalPrice() * 0.1)
   }
 
-  // چک کردن اینکه روز غیرفعال هست یا نه (پنجشنبه و جمعه همیشه غیرفعال)
   const isDayUnavailable = (date: string) => {
     if (!date) return false
     
@@ -413,20 +372,16 @@ export default function BookingForm() {
     const dayKey = dayMap[dayOfWeek]
     
     if (dayKey === 'thursday' || dayKey === 'friday') {
-      console.log(`🚫 روز ${dayOfWeek} (${dayKey}) - فقط با هماهنگی قبلی`)
+      setWeekendMessage(`📞 روز ${dayOfWeek} فقط با هماهنگی قبلی امکان‌پذیر است. لطفاً با شماره ۰۹۹۰۲۴۱۵۰۲۴ تماس بگیرید.`)
+      setIsWeekend(true)
       return true
     }
     
-    const isUnavailable = unavailableDays.includes(dayKey)
-    
-    if (isUnavailable) {
-      console.log(`🚫 روز ${dayOfWeek} (${dayKey}) غیرفعال است`)
-    }
-    
-    return isUnavailable
+    setWeekendMessage('')
+    setIsWeekend(false)
+    return unavailableDays.includes(dayKey)
   }
 
-  // چک کردن بازه زمانی غیرفعال
   const isTimeUnavailable = (date: string, start: string, end: string) => {
     if (!date || !start || !end) return false
     
@@ -440,7 +395,6 @@ export default function BookingForm() {
     })
   }
 
-  // چک کردن تداخل با رزروهای موجود
   const hasBookingConflict = (date: string, start: string, end: string) => {
     if (!date || !start || !end) return false
     
@@ -453,7 +407,6 @@ export default function BookingForm() {
     })
   }
 
-  // گرفتن زمان‌های شروع موجود (فیلتر شده)
   const getAvailableStartTimes = () => {
     if (!formData.date) return timeOptions
     
@@ -479,24 +432,22 @@ export default function BookingForm() {
     })
   }
 
-  // گرفتن زمان‌های پایان موجود
   const getAvailableEndTimes = () => {
     if (!formData.startTime || !formData.date) return []
     
     const startIndex = timeSlots.indexOf(formData.startTime)
     if (startIndex === -1) return []
     
-    // فقط ماساژ درمانی ۲۰ دقیقه است
     const isTherapy = formData.service === 'massage-6'
     
-    return timeSlots.slice(startIndex + 1).filter(time => {
+    return timeSlots.filter((time, index) => {
+      if (index <= startIndex) return false
+      
       const duration = calculateDuration(formData.startTime, time)
       
-      // اگر ماساژ درمانی باشد: فقط 20 دقیقه
       if (isTherapy) {
         if (duration !== 20) return false
       }
-      // سایر سرویس‌ها: فقط 60 دقیقه
       else {
         if (duration !== 60) return false
       }
@@ -506,10 +457,12 @@ export default function BookingForm() {
       if (hasBookingConflict(formData.date, formData.startTime, time)) return false
       
       return true
-    })
+    }).map(time => ({
+      value: time,
+      label: time
+    }))
   }
 
-  // اعتبارسنجی
   const validateField = (field: string, value: string) => {
     switch (field) {
       case 'name':
@@ -566,10 +519,8 @@ export default function BookingForm() {
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    if (touched[field as keyof typeof touched]) {
-      const error = validateField(field, value)
-      setErrors(prev => ({ ...prev, [field]: error }))
-    }
+    setErrors(prev => ({ ...prev, [field]: '' }))
+    setTouched(prev => ({ ...prev, [field]: false }))
   }
 
   const handleDateChange = (value: any) => {
@@ -579,12 +530,25 @@ export default function BookingForm() {
       const month = String(date.getMonth() + 1).padStart(2, '0')
       const day = String(date.getDate()).padStart(2, '0')
       const dateStr = `${year}-${month}-${day}`
-      setFormData({...formData, date: dateStr})
-      setFormData(prev => ({ ...prev, startTime: '', endTime: '' }))
-      if (touched.date) {
-        const error = validateField('date', dateStr)
-        setErrors(prev => ({ ...prev, date: error }))
+      
+      setFormData(prev => ({ 
+        ...prev, 
+        date: dateStr,
+        startTime: '',
+        endTime: ''
+      }))
+      
+      const dayOfWeek = new Date(dateStr).toLocaleDateString('fa-IR', { weekday: 'long' })
+      if (dayOfWeek === 'پنجشنبه' || dayOfWeek === 'جمعه') {
+        setWeekendMessage(`📞 روز ${dayOfWeek} فقط با هماهنگی قبلی امکان‌پذیر است. لطفاً با شماره ۰۹۹۰۲۴۱۵۰۲۴ تماس بگیرید.`)
+        setIsWeekend(true)
+      } else {
+        setWeekendMessage('')
+        setIsWeekend(false)
       }
+      
+      setErrors(prev => ({ ...prev, date: '', startTime: '', endTime: '' }))
+      setTouched(prev => ({ ...prev, date: false, startTime: false, endTime: false }))
     }
   }
 
@@ -609,12 +573,18 @@ export default function BookingForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    // ===== اگر روز تعطیل باشه، فرم ارسال نشه =====
+    if (isWeekend) {
+      alert('روزهای پنجشنبه و جمعه فقط با هماهنگی قبلی امکان‌پذیر است. لطفاً با شماره ۰۹۹۰۲۴۱۵۰۲۴ تماس بگیرید.')
+      return
+    }
+    
     if (!validateForm()) return
 
     if (isDayUnavailable(formData.date)) {
       const dayName = new Date(formData.date).toLocaleDateString('fa-IR', { weekday: 'long' })
       if (dayName === 'پنجشنبه' || dayName === 'جمعه') {
-        alert('این روز فقط با هماهنگی قبلی امکان‌پذیر است. لطفاً با ما تماس بگیرید.')
+        alert('این روز فقط با هماهنگی قبلی امکان‌پذیر است. لطفاً با شماره ۰۹۹۰۲۴۱۵۰۲۴ تماس بگیرید.')
       } else {
         alert('این روز غیرفعال است!')
       }
@@ -722,7 +692,7 @@ export default function BookingForm() {
           <input
             type="text"
             required
-            placeholder="مثال: علی محمدی"
+            placeholder="مثال:زهرا هیبتیان"
             className={`w-full p-4 bg-gray-50 border-2 rounded-xl focus:ring-2 focus:ring-[#447F98] focus:border-transparent outline-none transition-all ${
               errors.name && touched.name ? 'border-red-500 bg-red-50' : 'border-gray-200'
             }`}
@@ -784,7 +754,9 @@ export default function BookingForm() {
             options={services.map(s => ({ value: s.id, label: `${s.name} (${s.basePrice.toLocaleString()} تومان)` }))}
             value={services.find(s => s.id === formData.service) ? { value: formData.service, label: getServiceName(formData.service) } : null}
             onChange={(selected: any) => {
-              handleChange('service', selected?.value || '')
+              setFormData(prev => ({ ...prev, service: selected?.value || '' }))
+              setErrors(prev => ({ ...prev, service: '' }))
+              setTouched(prev => ({ ...prev, service: false }))
             }}
             onBlur={() => handleBlur('service')}
             placeholder="سرویس مورد نظر را انتخاب کنید..."
@@ -818,7 +790,10 @@ export default function BookingForm() {
               containerClassName="w-full"
             />
           </div>
-          {errors.date && touched.date && (
+          {weekendMessage && (
+            <p className="text-amber-600 text-xs mt-1 font-semibold">{weekendMessage}</p>
+          )}
+          {errors.date && touched.date && !weekendMessage && (
             <p className="text-red-500 text-xs mt-1">{errors.date}</p>
           )}
         </div>
@@ -829,8 +804,13 @@ export default function BookingForm() {
             options={getAvailableStartTimes()}
             value={timeOptions.find(opt => opt.value === formData.startTime)}
             onChange={(selected: any) => {
-              handleChange('startTime', selected?.value || '')
-              setFormData(prev => ({ ...prev, endTime: '' }))
+              setFormData(prev => ({ 
+                ...prev, 
+                startTime: selected?.value || '', 
+                endTime: '' 
+              }))
+              setErrors(prev => ({ ...prev, startTime: '', endTime: '' }))
+              setTouched(prev => ({ ...prev, startTime: false, endTime: false }))
             }}
             onBlur={() => handleBlur('startTime')}
             placeholder="ساعت شروع را انتخاب کنید..."
@@ -850,15 +830,17 @@ export default function BookingForm() {
         <div className="relative">
           <label className="block text-sm font-semibold text-gray-700 mb-2">⏰ ساعت پایان</label>
           <Select
-            options={getAvailableEndTimes().map(time => ({ value: time, label: time }))}
+            options={getAvailableEndTimes()}
             value={timeOptions.find(opt => opt.value === formData.endTime)}
             onChange={(selected: any) => {
-              handleChange('endTime', selected?.value || '')
+              setFormData(prev => ({ ...prev, endTime: selected?.value || '' }))
+              setErrors(prev => ({ ...prev, endTime: '' }))
+              setTouched(prev => ({ ...prev, endTime: false }))
             }}
             onBlur={() => handleBlur('endTime')}
             placeholder="ساعت پایان را انتخاب کنید..."
             isClearable
-            isDisabled={!formData.startTime || !formData.date}
+            isDisabled={!formData.startTime || !formData.date || isWeekend}
             styles={errors.endTime && touched.endTime ? errorSelectStyles : customSelectStyles}
             className="react-select-container"
             classNamePrefix="react-select"
@@ -870,7 +852,7 @@ export default function BookingForm() {
           {errors.endTime && touched.endTime && (
             <p className="text-red-500 text-xs mt-1">{errors.endTime}</p>
           )}
-          {formData.startTime && formData.endTime && !errors.endTime && (
+          {formData.startTime && formData.endTime && !errors.endTime && !isWeekend && (
             <p className="text-xs text-green-600 mt-1">
               ✅ مدت زمان: {getDurationText(calculateDuration(formData.startTime, formData.endTime))}
             </p>
@@ -890,7 +872,7 @@ export default function BookingForm() {
         </div>
       </div>
 
-      {formData.service && formData.startTime && formData.endTime && (
+      {formData.service && formData.startTime && formData.endTime && !isWeekend && (
         <div className="mt-6 p-4 bg-gradient-to-r from-[#447F98]/10 to-[#629BB6]/10 rounded-xl border border-[#447F98]/20">
           <div className="flex justify-between items-center">
             <span className="text-gray-600">قیمت نهایی:</span>
@@ -923,12 +905,27 @@ export default function BookingForm() {
         </div>
       )}
 
+      {isWeekend && (
+        <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-400 text-center">
+          <p className="text-amber-700 font-semibold">
+            ⚠️ روزهای پنجشنبه و جمعه فقط با هماهنگی قبلی امکان‌پذیر است.
+          </p>
+          <p className="text-amber-600 text-sm mt-1">
+            لطفاً با شماره ۰۹۹۰۲۴۱۵۰۲۴ تماس بگیرید.
+          </p>
+        </div>
+      )}
+
       <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        whileHover={!isWeekend ? { scale: 1.02 } : {}}
+        whileTap={!isWeekend ? { scale: 0.98 } : {}}
         type="submit"
-        disabled={isSubmitting}
-        className="w-full mt-8 bg-gradient-to-r from-[#447F98] to-[#629BB6] hover:from-[#629BB6] hover:to-[#447F98] text-white p-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl disabled:opacity-50 flex items-center justify-center gap-3"
+        disabled={isSubmitting || isWeekend}
+        className={`w-full mt-8 p-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-3 ${
+          isWeekend 
+            ? 'bg-gray-400 cursor-not-allowed opacity-60' 
+            : 'bg-gradient-to-r from-[#447F98] to-[#629BB6] hover:from-[#629BB6] hover:to-[#447F98] text-white shadow-lg hover:shadow-xl'
+        }`}
       >
         {isSubmitting ? (
           <>
@@ -937,6 +934,11 @@ export default function BookingForm() {
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
             در حال ثبت رزرو...
+          </>
+        ) : isWeekend ? (
+          <>
+            <span>🚫</span>
+            رزرو در این روز امکان‌پذیر نیست
           </>
         ) : (
           <>

@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <header 
-      className={`fixed top-0 w-full z-10 transition-all duration-500 py-7 sm:py-3 px-3 sm:px-6 ${
+      className={`fixed top-0 w-full z-10 transition-all duration-500 xl:py-7 sm:py-3 px-3 sm:px-6 s:py-3 ${
         isScrolled 
           ? 'bg-white/80 backdrop-blur-md shadow-lg' 
           : 'bg-gradient-to-r from-[#447F98]/90 to-[#629BB6]/90 backdrop-blur-sm'
@@ -82,8 +82,8 @@ export default function Header() {
           <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-3">
             <div className={`relative rounded-full overflow-hidden border-2 border-white/80 shadow-2xl transition-all duration-500 ${
               isScrolled 
-                ? 'w-20 h-20 sm:w-16 sm:h-16' 
-                : 'w-32 h-32 sm:w-20 sm:h-20'
+              ? 'xl:w-24 xl:h-24 xs:w-16 xs:h-16 s:w-20 s:h-20' 
+              : 'xl:w-32 xl:h-32 xs:w-20 xs:h-20 s:w-24 s:h-24'
             }`}>
               <Image
                 src="/customer-avatar.png"
