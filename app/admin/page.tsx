@@ -74,21 +74,8 @@ export default function AdminPanel() {
     customerName: ''
   })
 
-  // ===== رمز عبور ایمن =====
-  const getAdminPassword = () => {
-    const envPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD
-    if (envPassword && envPassword.length > 0) {
-      return envPassword
-    }
-    // فقط در محیط توسعه برای تست
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('⚠️ رمز از env خوانده نشد، از رمز پیش‌فرض استفاده می‌شود')
-      return 'Admin@1403#'
-    }
-    throw new Error('❌ رمز عبور در فایل env.local تنظیم نشده است!')
-  }
-
-  const ADMIN_PASSWORD = getAdminPassword()
+  // ===== رمز عبور مستقیم =====
+  const ADMIN_PASSWORD = 'Admin@1403#'
 
   const weekDays = [
     { value: 'saturday', label: 'شنبه' },
@@ -281,7 +268,7 @@ export default function AdminPanel() {
     }
   }
 
-  // ===== ورود با رمز ایمن =====
+  // ===== ورود با رمز =====
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     if (!password) {
@@ -290,10 +277,10 @@ export default function AdminPanel() {
     }
     if (password === ADMIN_PASSWORD) {
       setIsAuthenticated(true)
-      setPassword('') // پاک کردن رمز بعد از ورود موفق
+      setPassword('')
     } else {
       alert('رمز عبور اشتباه است!')
-      setPassword('') // پاک کردن رمز بعد از خطا
+      setPassword('')
     }
   }
 
