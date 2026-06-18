@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <>
       {/* ========== بخش هدر ========== */}
-      <section id="home" className="relative min-h-screen bg-[#DADEE1] px-3 xs:px-3 s:px-4 m:px-6 md:px-8 lg:px-12 xl:px-5 pt-12 xs:pt-12 s:pt-14 m:pt-16 md:pt-20 lg:pt-24 xl:pt-20 overflow-hidden">
+      <section id="home" className="relative min-h-screen bg-[#DADEE1] px-3 xs:px-3  m:px-6 md:px-8 lg:px-12 xl:px-5 pt-12 xs:pt-12  m:pt-16 md:pt-20 lg:pt-24 xl:pt-20 overflow-hidden">
         
         {/* 1. متن */}
         <AnimationWrapper direction="up" delay={0.2}>
