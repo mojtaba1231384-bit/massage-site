@@ -1,5 +1,5 @@
 /** @type {import('@vercel/node').VercelConfig} */
-module.exports = {
+export default {
   framework: 'nextjs',
   buildCommand: 'npm run build',
   outputDirectory: '.next',
