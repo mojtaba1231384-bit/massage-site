@@ -14,6 +14,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "axios": "^1.18.0",
+    "critters": "^0.0.23",
     "framer-motion": "^12.40.0",
     "lucide-react": "^0.263.1",
     "moment-jalaali": "^0.10.4",
