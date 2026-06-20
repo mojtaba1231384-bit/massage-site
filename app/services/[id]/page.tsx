@@ -192,7 +192,7 @@ export default function PricesPage() {
   }
 
   return (
-    <section className="min-h-screen bg-[#DADEE1] py-5 sm:py-16 px-3 sm:px-4 mt-1 sm:mt-16 s:mt-1">
+    <section className="min-h-screen bg-[#DADEE1] py-5 xs:py-6 sm:py-16 px-3 sm:px-4 mt-1 sm:mt-16 s:mt-1">
       <div className="container mx-auto max-w-6xl">
         
         <AnimationWrapper direction="up" delay={0.1}>
