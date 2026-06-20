@@ -47,7 +47,7 @@ export default function Home() {
             
             {/* توضیحات - یکسان برای xs و s */}
             <div className="text-gray-600 text-center text-[10px] xs:text-base s:text-base s:leading-8 m:text-sm md:text-base lg:text-base xl:text-lg leading-relaxed sm:leading-loose">
-              <p className='font-bold xs:text-sm s:text-md'>در فضای آرام و حرفه‌ای</p>
+              <p className='font-bold xs:text-sm s:text-md'>در فضایی آرام و حرفه‌ای</p>
               <p className='font-bold xs:text-sm s:text-md'>انواع خدمات ماساژ درمانی، ریلکسی و تخصصی را تجربه کنید</p>
               <p className='font-bold xs:text-sm s:text-md'>و خستگی را از تن خود دور کنید</p>
             </div>
