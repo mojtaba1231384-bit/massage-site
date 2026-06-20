@@ -221,7 +221,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== بخش تماس ========== */}
+      {/* ========== sبخش تماس ========== */}
       <section id="contact" className="py-4 xs:py-8 s:py-5 m:py-6 md:py-8 lg:py-12 xl:py-20 bg-[#DADEE1]">
         <AnimationWrapper direction="up">
           <div className="container mx-auto px-4 text-center">
