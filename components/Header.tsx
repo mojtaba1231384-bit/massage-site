@@ -97,10 +97,7 @@ export default function Header() {
             </div>
             
             <div className="block">
-              {/*
-                اصلاح H1 تکراری: قبلاً h1 بود که با H1 صفحه اصلی تداخل داشت.
-                لوگو/نام برند در هدر نباید H1 باشه — از p استفاده میکنیم.
-              */}
+             
               <p className={`font-bold transition-all duration-500 ${
                 isScrolled 
                   ? 'text-sm sm:text-base text-[#447F98]' 

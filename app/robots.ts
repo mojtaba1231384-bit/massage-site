@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         '/api/',
         '/payment/verify/',
         '/admin',
-        '/tracking',  // اضافه کن اگه tracking رو نمی‌خوای
+        '/tracking', 
       ],
     },
 sitemap: 'https://massage-site.vercel.app/sitemap.xml',

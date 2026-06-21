@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle, XCircle } from 'lucide-react'
 
-// ===== کامپوننت اصلی با Suspense =====
 export default function PaymentVerifyPage() {
   return (
     <Suspense fallback={
@@ -22,7 +21,7 @@ export default function PaymentVerifyPage() {
   )
 }
 
-// ===== محتوای اصلی با useSearchParams =====
+
 function PaymentVerifyContent() {
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<'loading' | 'success' | 'failed'>('loading')
