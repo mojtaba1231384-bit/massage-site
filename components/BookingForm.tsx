@@ -858,7 +858,7 @@ export default function BookingForm() {
             styles={errors.startTime && touched.startTime ? errorSelectStyles : customSelectStyles}
             className="react-select-container"
             classNamePrefix="react-select"
-            menuPortalTarget={document.body}
+menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
             menuPosition="fixed"
             menuShouldScrollIntoView={false}
           />
@@ -885,7 +885,7 @@ export default function BookingForm() {
             className="react-select-container"
             classNamePrefix="react-select"
             noOptionsMessage={() => 'ابتدا تاریخ و ساعت شروع را انتخاب کنید'}
-            menuPortalTarget={document.body}
+menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
             menuPosition="fixed"
             menuShouldScrollIntoView={false}
           />
