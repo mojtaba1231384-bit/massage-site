@@ -42,8 +42,10 @@ export default function BookingForm() {
   const [unavailableTimes, setUnavailableTimes] = useState<any[]>([])
   const [existingBookings, setExistingBookings] = useState<any[]>([])
   const [weekendMessage, setWeekendMessage] = useState('')
-  // ===== STATE جدید برای تشخیص روزهای تعطیل =====
   const [isWeekend, setIsWeekend] = useState(false)
+  const [isToday, setIsToday] = useState(false)
+  const [selectedDate, setSelectedDate] = useState<any>(null)
+  const [pickerKey, setPickerKey] = useState(0)
 
   const timeSlots = [
     '09:00', '09:10', '09:20', '09:30', '09:40', '09:50',
@@ -356,6 +358,23 @@ export default function BookingForm() {
     return Math.floor(getFinalPrice() * 0.1)
   }
 
+  const checkIfToday = (dateStr: string) => {
+    if (!dateStr) return false
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
+    const todayStr = `${year}-${month}-${day}`
+    return dateStr === todayStr
+  }
+
+  const getCurrentTime = () => {
+    const now = new Date()
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    return `${hours}:${minutes}`
+  }
+
   const isDayUnavailable = (date: string) => {
     if (!date) return false
     
@@ -410,8 +429,15 @@ export default function BookingForm() {
   const getAvailableStartTimes = () => {
     if (!formData.date) return timeOptions
     
+    const isTodayDate = checkIfToday(formData.date)
+    const currentTimeStr = getCurrentTime()
+    
     return timeOptions.filter(option => {
       const time = option.value
+      
+      if (isTodayDate && time <= currentTimeStr) {
+        return false
+      }
       
       const isUnavailable = unavailableTimes.some((t: any) => {
         if (t.date !== formData.date) return false
@@ -439,6 +465,8 @@ export default function BookingForm() {
     if (startIndex === -1) return []
     
     const isTherapy = formData.service === 'massage-6'
+    const isTodayDate = checkIfToday(formData.date)
+    const currentTimeStr = getCurrentTime()
     
     return timeSlots.filter((time, index) => {
       if (index <= startIndex) return false
@@ -450,6 +478,10 @@ export default function BookingForm() {
       }
       else {
         if (duration !== 60) return false
+      }
+      
+      if (isTodayDate && time <= currentTimeStr) {
+        return false
       }
       
       if (isTimeUnavailable(formData.date, formData.startTime, time)) return false
@@ -531,12 +563,17 @@ export default function BookingForm() {
       const day = String(date.getDate()).padStart(2, '0')
       const dateStr = `${year}-${month}-${day}`
       
+      setSelectedDate(value)
+      setPickerKey(prev => prev + 1)
+      
       setFormData(prev => ({ 
         ...prev, 
         date: dateStr,
         startTime: '',
         endTime: ''
       }))
+      
+      setIsToday(checkIfToday(dateStr))
       
       const dayOfWeek = new Date(dateStr).toLocaleDateString('fa-IR', { weekday: 'long' })
       if (dayOfWeek === 'پنجشنبه' || dayOfWeek === 'جمعه') {
@@ -573,7 +610,6 @@ export default function BookingForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // ===== اگر روز تعطیل باشه، فرم ارسال نشه =====
     if (isWeekend) {
       alert('روزهای پنجشنبه و جمعه فقط با هماهنگی قبلی امکان‌پذیر است. لطفاً با شماره ۰۹۹۰۲۴۱۵۰۲۴ تماس بگیرید.')
       return
@@ -778,9 +814,10 @@ export default function BookingForm() {
             errors.date && touched.date ? 'border-red-500 bg-red-50' : 'border-gray-200'
           }`}>
             <DatePicker
+              key={pickerKey}
               calendar={persian}
               locale={persian_fa}
-              value={formData.date ? new Date(formData.date) : undefined}
+              value={selectedDate}
               onChange={handleDateChange}
               minDate={new Date()}
               placeholder="تاریخ را انتخاب کنید..."
@@ -795,6 +832,9 @@ export default function BookingForm() {
           )}
           {errors.date && touched.date && !weekendMessage && (
             <p className="text-red-500 text-xs mt-1">{errors.date}</p>
+          )}
+          {isToday && (
+            <p className="text-blue-600 text-xs mt-1 font-semibold">📌 امروز - فقط ساعت‌های آینده قابل رزرو هستند</p>
           )}
         </div>
 

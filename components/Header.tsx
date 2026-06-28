@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
   const router = useRouter()
@@ -46,9 +47,68 @@ export default function Header() {
     { name: 'تماس با ما', id: 'contact' }
   ]
 
+  // ===== انیمیشن‌های منوی موبایل =====
+  const menuVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+        ease: 'easeOut'
+      }
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: 'easeOut',
+        staggerChildren: 0.05,
+        delayChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+        ease: 'easeIn'
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      x: -20
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: 'easeOut'
+      }
+    }
+  }
+
+  const iconVariants = {
+    open: {
+      rotate: 90,
+      transition: { duration: 0.3 }
+    },
+    closed: {
+      rotate: 0,
+      transition: { duration: 0.3 }
+    }
+  }
+
   return (
     <header 
-      className={`fixed top-0 w-full z-10 transition-all duration-500 xs:py-3 xl:py-7 sm:py-3 px-3 sm:px-6 s:py-3 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-500 xs:py-3 xl:py-7 sm:py-3 px-3 sm:px-6 s:py-3 ${
         isScrolled 
           ? 'bg-white/80 backdrop-blur-md shadow-lg' 
           : 'bg-gradient-to-r from-[#447F98]/90 to-[#629BB6]/90 backdrop-blur-sm'
@@ -57,7 +117,8 @@ export default function Header() {
       <div className="container lg:-mr-[110px] xl:mr-[70px] ">
         <div className="flex items-center justify-between min-h-[60px] sm:min-h-[80px] ">
           
-          <nav className="hidden md:flex items-center gap-2 sm:gap-3">
+          {/* منو - فقط در lg به بالا */}
+          <nav className="hidden lg:flex items-center gap-2 sm:gap-3">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -79,6 +140,7 @@ export default function Header() {
             ))}
           </nav>
 
+          {/* لوگو و عنوان */}
           <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-3">
             <div className={`relative rounded-full overflow-hidden border-2 border-white/80 shadow-2xl transition-all duration-500 ${
               isScrolled 
@@ -97,7 +159,6 @@ export default function Header() {
             </div>
             
             <div className="block">
-             
               <p className={`font-bold transition-all duration-500 ${
                 isScrolled 
                   ? 'text-sm sm:text-base text-[#447F98]' 
@@ -113,37 +174,53 @@ export default function Header() {
             </div>
           </div>
 
-          <button 
+          {/* دکمه همبرگری با انیمیشن */}
+          <motion.button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden text-xl sm:text-2xl transition-all duration-500 p-1 sm:p-1.5 rounded-xl ${
+            className={`lg:hidden text-2xl sm:text-3xl transition-all duration-500 p-1 sm:p-1.5 rounded-xl ${
               isScrolled 
                 ? 'text-[#447F98] hover:bg-[#447F98]/10' 
                 : 'text-white hover:bg-white/20'
             }`}
+            animate={isMobileMenuOpen ? 'open' : 'closed'}
+            variants={iconVariants}
           >
             {isMobileMenuOpen ? '✕' : '☰'}
-          </button>
+          </motion.button>
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-2 py-3 bg-white rounded-2xl shadow-xl border border-gray-100">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  if (item.id === 'tracking') {
-                    navigateToTracking()
-                  } else {
-                    scrollToSection(item.id)
-                  }
-                }}
-                className="block w-full text-right px-4 py-2.5 text-gray-700 hover:bg-[#447F98]/10 hover:text-[#8908E1] transition-colors text-sm font-medium rounded-lg"
-              >
-                {item.name}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* منوی موبایل با انیمیشن */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="lg:hidden mt-2 py-3 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+            >
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  variants={itemVariants}
+                  custom={index}
+                  onClick={() => {
+                    if (item.id === 'tracking') {
+                      navigateToTracking()
+                    } else {
+                      scrollToSection(item.id)
+                    }
+                  }}
+                  className="block w-full text-right px-4 py-2.5 text-gray-700 hover:bg-[#447F98]/10 hover:text-[#8908E1] transition-colors text-sm font-medium rounded-lg"
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {item.name}
+                </motion.button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   )

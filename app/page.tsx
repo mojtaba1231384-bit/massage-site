@@ -147,13 +147,13 @@ export default function Home() {
       </AnimationWrapper>
 
       {/* Features */}
-<section className=" xs:py-8 s:py-5 m:py-6 md:py-8 lg:py-12 xl:py-16 text-[#222222] bg-[#DADEE1]">
+<section className=" xs:py-8 s:py-5 m:py-6 md:py-6  lg:py-12 xl:py-16 text-[#222222] bg-[#DADEE1]">
   <div className="container   text-center md:mr-10 lg:mr-20 xl:mr-24 md:mt-10 lg:mt-32 xl:mt-20">
     <AnimationWrapper direction="up">
-      <h2 className="text-lg xs:text-2xl s:text-xl m:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-2 xs:mb-4 s:mb-3 m:mb-3 md:mb-4 lg:mb-6 lg:ml-[500px]  xl:mb-20 xl:ml-[490px] text-[#447F98]">زمان آرامش شما رسیده</h2>
+      <h2 className="text-lg xs:text-2xl s:text-xl m:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-2 xs:mb-4 s:mb-3 m:mb-3 md:mb-4 md:ml-16 lg:mb-6 lg:ml-[500px]  xl:mb-20 xl:ml-[490px] text-[#447F98]">زمان آرامش شما رسیده</h2>
     </AnimationWrapper>
     
-    <div className="grid grid-cols-1 xs:grid-cols-2 xs:p-1 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1.5 xs:gap-3 s:gap-2 m:gap-2 md:gap-3 lg:gap-4 xl:gap-6 w-full lg:-mr-[50px] lg:w-[60%] xl:w-[65%] ">
+    <div className="grid grid-cols-1 xs:grid-cols-2 xs:p-1 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:-mr-10 gap-1.5 xs:gap-3 s:gap-2 m:gap-2 md:gap-3 lg:gap-4 xl:gap-6 w-full lg:-mr-[50px] lg:w-[60%] xl:w-[65%] ">
       
       {[
         { icon: '🧘‍♀️', text: 'محیط آرام' },
