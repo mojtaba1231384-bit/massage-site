@@ -54,8 +54,8 @@ export default function Header() {
           : 'bg-gradient-to-r from-[#447F98]/90 to-[#629BB6]/90 backdrop-blur-sm'
       }`}
     >
-      <div className="container mx-auto">
-        <div className="flex items-center justify-between min-h-[60px] sm:min-h-[80px]">
+      <div className="container lg:-mr-[110px] xl:mr-[70px] ">
+        <div className="flex items-center justify-between min-h-[60px] sm:min-h-[80px] ">
           
           <nav className="hidden md:flex items-center gap-2 sm:gap-3">
             {navItems.map((item) => (
