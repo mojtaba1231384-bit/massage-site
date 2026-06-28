@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import BookingForm from '@/components/BookingForm'
@@ -17,15 +16,8 @@ const serviceItems = [
 ]
 
 export default function Home() {
-  const [isMounted, setIsMounted] = useState(false)
-  
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    return null
-  }
+  // isMounted و if (!isMounted) return null حذف شد
+  // باعث میشد گوگل محتوای صفحه رو نبینه
 
   return (
     <>
@@ -66,50 +58,48 @@ export default function Home() {
           </div>
         </AnimationWrapper>
 
-   {/* HeroImages */}
-<div className="flex flex-row justify-center lg:justify-end items-center gap-6 -mt-[50px] xs:mt-1 s:mt-1 lg:-mt-[150px] xl:-mt-[390px]">
-  
-  {/* ===== عکس اول - کوچیکتر در lg ===== */}
-  <div className="w-[300px] max-w-[400px] relative mx-auto mb-[100px] xs:mb-[268px] s:mb-[290px] m:mb-[312px] md:mb-[496px] lg:mx-1 lg:w-[180px] lg:mb-[300px] xl:w-[300px] xl:mb-[480px]">
-    <div className="relative mt-[100px] pt-[150%] lg:mb-[70px] rounded-t-[190px] lg:rounded-t-[140px] xl:rounded-t-[190px] overflow-hidden shadow-xl">
-      <Image
-        src="/half-circle-right.jpg"
-        alt="محیط آرام مرکز ماساژ آرامیس اصفهان"
-        fill
-        className="object-cover absolute inset-0"
-        sizes="(max-width: 768px) 300px, 400px"
-        priority
-      />
-    </div>
-  </div>
+        {/* HeroImages */}
+        <div className="flex flex-row justify-center lg:justify-end items-center gap-6 -mt-[50px] xs:mt-1 s:mt-1 lg:-mt-[150px] xl:-mt-[390px]">
+          
+          <div className="w-[300px] max-w-[400px] relative mx-auto mb-[100px] xs:mb-[268px] s:mb-[290px] m:mb-[312px] md:mb-[496px] lg:mx-1 lg:w-[180px] lg:mb-[300px] xl:w-[300px] xl:mb-[480px]">
+            <div className="relative mt-[100px] pt-[150%] lg:mb-[70px] rounded-t-[190px] lg:rounded-t-[140px] xl:rounded-t-[190px] overflow-hidden shadow-xl">
+              <Image
+                src="/half-circle-right.jpg"
+                alt="محیط آرام مرکز ماساژ آرامیس اصفهان"
+                fill
+                className="object-cover absolute inset-0"
+                sizes="(max-width: 768px) 300px, 400px"
+                priority
+              />
+            </div>
+          </div>
 
-  {/* ===== عکس دوم - کوچیکتر در lg ===== */}
-  <div className="w-[460px] max-w-lg relative mx-auto lg:mx-0 lg:w-[280px] xl:w-[460px]">
-    <div className="relative w-full pt-[150%] rounded-t-[250px] lg:rounded-t-[180px]  xl:rounded-t-[250px] overflow-hidden shadow-xl">
-      <Image
-        src="/half-circle-left.jpg"
-        alt="ماساژ تخصصی در آرامیس اصفهان"
-        fill
-        className="object-cover absolute inset-0"
-        sizes="(max-width: 768px) 460px, 460px"
-        priority
-      />
-    </div>
-    <div className="relative w-full pt-[150%] rounded-b-[250px] lg:rounded-b-[180px] xl:rounded-b-[250px] overflow-hidden shadow-xl -mt-1">
-      <Image
-        src="/half-circle-left-bottom.jpg"
-        alt="خدمات ماساژ درمانی و ریلکسی آرامیس"
-        fill
-        className="object-cover absolute inset-0"
-        sizes="(max-width: 768px) 460px, 460px"
-      />
-    </div>
-  </div>
-</div>
+          <div className="w-[460px] max-w-lg relative mx-auto lg:mx-0 lg:w-[280px] xl:w-[460px]">
+            <div className="relative w-full pt-[150%] rounded-t-[250px] lg:rounded-t-[180px] xl:rounded-t-[250px] overflow-hidden shadow-xl">
+              <Image
+                src="/half-circle-left.jpg"
+                alt="ماساژ تخصصی در آرامیس اصفهان"
+                fill
+                className="object-cover absolute inset-0"
+                sizes="(max-width: 768px) 460px, 460px"
+                priority
+              />
+            </div>
+            <div className="relative w-full pt-[150%] rounded-b-[250px] lg:rounded-b-[180px] xl:rounded-b-[250px] overflow-hidden shadow-xl -mt-1">
+              <Image
+                src="/half-circle-left-bottom.jpg"
+                alt="خدمات ماساژ درمانی و ریلکسی آرامیس"
+                fill
+                className="object-cover absolute inset-0"
+                sizes="(max-width: 768px) 460px, 460px"
+              />
+            </div>
+          </div>
+        </div>
 
-        {/* ServicesGrid - اصلاح شده */}
+        {/* ServicesGrid */}
         <section id="services" className="-mt-[40px] xs:-mt-[1px] s:mt-[20px] m:mt-[20px] md:mt-[20px] lg:mt-[20px] pb-3 xs:pb-6 s:pb-4 m:pb-4 md:pb-6 lg:pb-10 animate-on-scroll">
-          <div className="grid grid-cols-2 xs:grid-cols-2 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1.5 xs:gap-3 s:gap-2 m:gap-2 md:gap-3 lg:gap-3 lg:w-[65%] lg:ml-[500px]  lg:-mt-[400px] xl:w-[65%] xl:ml-[500px] xl:-mt-[600px]  xs:px-4 s:px-4 m:px-6 md:px-8 lg:px-0">
+          <div className="grid grid-cols-2 xs:grid-cols-2 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1.5 xs:gap-3 s:gap-2 m:gap-2 md:gap-3 lg:gap-3 lg:w-[65%] lg:ml-[500px] lg:-mt-[400px] xl:w-[65%] xl:ml-[500px] xl:-mt-[600px] xs:px-4 s:px-4 m:px-6 md:px-8 lg:px-0">
             
             {serviceItems.map((item, index) => (
               <AnimationWrapper key={item.id} direction="up" delay={index * 0.1}>
@@ -147,48 +137,47 @@ export default function Home() {
       </AnimationWrapper>
 
       {/* Features */}
-<section className=" xs:py-8 s:py-5 m:py-6 md:py-6  lg:py-12 xl:py-16 text-[#222222] bg-[#DADEE1]">
-  <div className="container   text-center md:mr-10 lg:mr-20 xl:mr-24 md:mt-10 lg:mt-32 xl:mt-20">
-    <AnimationWrapper direction="up">
-      <h2 className="text-lg xs:text-2xl s:text-xl m:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-2 xs:mb-4 s:mb-3 m:mb-3 md:mb-4 md:ml-16 lg:mb-6 lg:ml-[500px]  xl:mb-20 xl:ml-[490px] text-[#447F98]">زمان آرامش شما رسیده</h2>
-    </AnimationWrapper>
-    
-    <div className="grid grid-cols-1 xs:grid-cols-2 xs:p-1 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:-mr-10 gap-1.5 xs:gap-3 s:gap-2 m:gap-2 md:gap-3 lg:gap-4 xl:gap-6 w-full lg:-mr-[50px] lg:w-[60%] xl:w-[65%] ">
-      
-      {[
-        { icon: '🧘‍♀️', text: 'محیط آرام' },
-        { icon: '🌿', text: 'تمیز و بهداشتی' },
-        { icon: '✨', text: 'محصولات باکیفیت' },
-        { icon: '🏠', text: 'اتاق اختصاصی' },
-        { icon: '💆', text: 'ماساژور حرفه‌ای' },
-        { icon: '🌺', text: 'روغن طبیعی' }
-      ].map((item, index) => (
-        <AnimationWrapper key={index} direction="up" delay={index * 0.1}>
-          <div className="bg-[#447f98] text-white p-1.5 xs:p-4 s:p-2 m:p-2 md:p-3 lg:p-4 xl:p-6 rounded-lg xs:rounded-xl s:rounded-xl m:rounded-xl md:rounded-xl lg:rounded-xl xl:rounded-xl hover:bg-[#629BB6] shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-white/30">
-            <span className="text-xl xs:text-2xl s:text-2xl m:text-2xl md:text-2xl lg:text-3xl xl:text-3xl">{item.icon}</span><br/>
-            <span className="text-[8px] xs:font-bold xs:text-xs s:text-[9px] m:text-[10px] md:text-xs lg:text-sm xl:text-base">{item.text}</span>
-          </div>
-        </AnimationWrapper>
-      ))}
+      <section className="xs:py-8 s:py-5 m:py-6 md:py-6 lg:py-12 xl:py-16 text-[#222222] bg-[#DADEE1]">
+        <div className="container text-center md:mr-10 lg:mr-20 xl:mr-24 md:mt-10 lg:mt-32 xl:mt-20">
+          <AnimationWrapper direction="up">
+            <h2 className="text-lg xs:text-2xl s:text-xl m:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-2 xs:mb-4 s:mb-3 m:mb-3 md:mb-4 md:ml-16 lg:mb-6 lg:ml-[500px] xl:mb-20 xl:ml-[490px] text-[#447F98]">زمان آرامش شما رسیده</h2>
+          </AnimationWrapper>
+          
+          <div className="grid grid-cols-1 xs:grid-cols-2 xs:p-1 s:grid-cols-2 m:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:-mr-10 gap-1.5 xs:gap-3 s:gap-2 m:gap-2 md:gap-3 lg:gap-4 xl:gap-6 w-full lg:-mr-[50px] lg:w-[60%] xl:w-[65%]">
+            
+            {[
+              { icon: '🧘‍♀️', text: 'محیط آرام' },
+              { icon: '🌿', text: 'تمیز و بهداشتی' },
+              { icon: '✨', text: 'محصولات باکیفیت' },
+              { icon: '🏠', text: 'اتاق اختصاصی' },
+              { icon: '💆', text: 'ماساژور حرفه‌ای' },
+              { icon: '🌺', text: 'روغن طبیعی' }
+            ].map((item, index) => (
+              <AnimationWrapper key={index} direction="up" delay={index * 0.1}>
+                <div className="bg-[#447f98] text-white p-1.5 xs:p-4 s:p-2 m:p-2 md:p-3 lg:p-4 xl:p-6 rounded-lg xs:rounded-xl s:rounded-xl m:rounded-xl md:rounded-xl lg:rounded-xl xl:rounded-xl hover:bg-[#629BB6] shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-white/30">
+                  <span className="text-xl xs:text-2xl s:text-2xl m:text-2xl md:text-2xl lg:text-3xl xl:text-3xl">{item.icon}</span><br/>
+                  <span className="text-[8px] xs:font-bold xs:text-xs s:text-[9px] m:text-[10px] md:text-xs lg:text-sm xl:text-base">{item.text}</span>
+                </div>
+              </AnimationWrapper>
+            ))}
 
-    </div>
-  </div>
-  
- <div className="hidden lg:flex justify-end gap-6 -mt-[550px] ml-10">
-  <div className="w-[60%] lg:w-[30%] xl:w-[40%] max-w-[450px] relative">
-    <div className="relative mt-[113px] pt-[150%] rounded-t-[250px] overflow-hidden shadow-xl">
-      <Image
-        src="/half-circle-down.jpg"
-        alt="فضای آرام مرکز ماساژ آرامیس"
-        fill
-        className="object-cover absolute inset-0"
-        sizes="450px"
-      />
-    </div>
-  </div>
-</div>
-   
-</section>  
+          </div>
+        </div>
+        
+        <div className="hidden lg:flex justify-end gap-6 -mt-[550px] ml-10">
+          <div className="w-[60%] lg:w-[30%] xl:w-[40%] max-w-[450px] relative">
+            <div className="relative mt-[113px] pt-[150%] rounded-t-[250px] overflow-hidden shadow-xl">
+              <Image
+                src="/half-circle-down.jpg"
+                alt="فضای آرام مرکز ماساژ آرامیس"
+                fill
+                className="object-cover absolute inset-0"
+                sizes="450px"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* BookingForm */}
       <section id="booking" className="py-4 xs:py-8 s:py-5 m:py-6 md:py-8 lg:py-12 xl:py-20 bg-[#89D8E1]/20">
@@ -234,7 +223,7 @@ export default function Home() {
               <br/>
               هیبتیان
             </a>
-            <p className="mt-1 font-bold xs:mt-3 s:mt-2 m:mt-2 md:mt-3 lg:mt-4 xl:mt-6 text-[8px] xs:text-sm s:text-[10px] m:text-xs md:text-sm text-gray-500">ساعات کاری: شنبه تا چهارشنبه ۹صبح تا ۲۰ - پنجشنبه و جمعه با هماهنگی قبلی </p>
+            <p className="mt-1 font-bold xs:mt-3 s:mt-2 m:mt-2 md:mt-3 lg:mt-4 xl:mt-6 text-[8px] xs:text-sm s:text-[10px] m:text-xs md:text-sm text-gray-500">ساعات کاری: شنبه تا چهارشنبه ۹صبح تا ۲۰ - پنجشنبه و جمعه با هماهنگی قبلی</p>
           </div>
         </AnimationWrapper>
       </section>

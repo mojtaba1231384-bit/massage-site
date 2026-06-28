@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-const baseUrl = 'https://massage-site.vercel.app'
+  const baseUrl = 'https://massage-site.vercel.app'
   
   return [
     {
@@ -11,28 +11,12 @@ const baseUrl = 'https://massage-site.vercel.app'
       priority: 1,
     },
     {
-      url: `${baseUrl}/#services`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/prices`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/#booking`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#gallery`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+    // /#services, /#booking, /#gallery حذف شدن
+    // گوگل anchor link رو صفحه جداگانه حساب نمیکنه
   ]
 }
