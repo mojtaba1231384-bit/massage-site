@@ -47,7 +47,7 @@ export default function Header() {
     { name: 'تماس با ما', id: 'contact' }
   ]
 
-  // ===== انیمیشن‌های منوی موبایل =====
+  // ===== انیمیشن‌های منوی موبایل با `ease` درست =====
   const menuVariants = {
     hidden: {
       opacity: 0,
@@ -55,7 +55,7 @@ export default function Header() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: 'easeOut'
+        ease: 'easeOut' as const
       }
     },
     visible: {
@@ -64,7 +64,7 @@ export default function Header() {
       scale: 1,
       transition: {
         duration: 0.3,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
         staggerChildren: 0.05,
         delayChildren: 0.1
       }
@@ -75,7 +75,7 @@ export default function Header() {
       scale: 0.95,
       transition: {
         duration: 0.2,
-        ease: 'easeIn'
+        ease: 'easeIn' as const
       }
     }
   }
@@ -90,7 +90,7 @@ export default function Header() {
       x: 0,
       transition: {
         duration: 0.3,
-        ease: 'easeOut'
+        ease: 'easeOut' as const
       }
     }
   }
@@ -117,7 +117,6 @@ export default function Header() {
       <div className="container lg:-mr-[110px] xl:mr-[70px] ">
         <div className="flex items-center justify-between min-h-[60px] sm:min-h-[80px] ">
           
-          {/* منو - فقط در lg به بالا */}
           <nav className="hidden lg:flex items-center gap-2 sm:gap-3">
             {navItems.map((item) => (
               <button
@@ -140,7 +139,6 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* لوگو و عنوان */}
           <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-3">
             <div className={`relative rounded-full overflow-hidden border-2 border-white/80 shadow-2xl transition-all duration-500 ${
               isScrolled 
@@ -174,7 +172,6 @@ export default function Header() {
             </div>
           </div>
 
-          {/* دکمه همبرگری با انیمیشن */}
           <motion.button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`lg:hidden text-2xl sm:text-3xl transition-all duration-500 p-1 sm:p-1.5 rounded-xl ${
@@ -189,7 +186,6 @@ export default function Header() {
           </motion.button>
         </div>
 
-        {/* منوی موبایل با انیمیشن */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
